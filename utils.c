@@ -6,7 +6,7 @@
 /*   By: mde-cloe <mde-cloe@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/10/19 20:42:44 by mde-cloe      #+#    #+#                 */
-/*   Updated: 2022/10/19 21:37:57 by mde-cloe      ########   odam.nl         */
+/*   Updated: 2022/10/19 21:51:31 by mde-cloe      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,7 +78,11 @@ bool	is_valid_input(char *str)
 
 	i = 0;
 	if (str[i] == '-')
+	{
 		i++;
+		if (!str[i])
+			return (false);
+	}
 	while (str[i])
 	{
 		if (!ft_isdigit((int)str[i]))
