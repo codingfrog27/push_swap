@@ -1,53 +1,37 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   main.c                                             :+:    :+:            */
+/*   parsing.c                                          :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: mde-cloe <mde-cloe@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2022/10/18 17:47:49 by mde-cloe      #+#    #+#                 */
-/*   Updated: 2022/10/19 21:37:56 by mde-cloe      ########   odam.nl         */
+/*   Created: 2022/10/20 16:19:41 by mde-cloe      #+#    #+#                 */
+/*   Updated: 2022/10/20 16:30:37 by mde-cloe      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-int	main(int argc, char **argv)
-{
-	int	*nbrs;
-	int	arrlen;
-	int	*normal_arr;
-
-	if (argc < 2)
-	{
-		ft_printf("ERROR\n");
-		return (1);
-	}
-	arrlen = argc - 1;
-	nbrs = input_to_array(arrlen, argv);
-	print_array(nbrs, arrlen);
-	normal_arr = normalize(nbrs, arrlen);
-	print_array(normal_arr, arrlen);
-}
-
 int	*input_to_array(int arrlen, char **argv)
 {
 	int	*nbrs;
 	int	i;
-	int	j;
 
 	nbrs = (int *)malloc(sizeof(int) * arrlen);
 	if (!nbrs)
 		exit(1);
 	i = 0;
-	j = 1;
 	while (i < arrlen)
 	{
 		if (!is_valid_input(argv[j]))
 			error_exit();
-		nbrs[i] = ft_atoi(argv[j]);
+		nbrs[i] = ft_atoi(argv[j + 1]);
 		i++;
-		j++;
+	}
+	if (contains_doubles(nbrs, arrlen))
+	{
+		free(nbrs);
+		error_exit();
 	}
 	return (nbrs);
 }
@@ -77,4 +61,25 @@ int	*normalize(int *nbrs, int arrlen)
 	}
 	free(copy);
 	return (normal_arr);
+}
+
+bool	contains_doubles(int *nbrs, int arrlen)
+{
+	int	i;
+	int	j;
+
+	i = 0;
+	j = 0;
+	while (i < arrlen)
+	{
+		while (j < arrlen)
+		{
+			if (nbrs[i] == nbrs[j])
+				return (true);
+			j++;
+		}
+		i++;
+		j = 0;
+	}
+	return (false);
 }
