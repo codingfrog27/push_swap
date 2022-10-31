@@ -6,7 +6,7 @@
 /*   By: mde-cloe <mde-cloe@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/10/18 17:48:11 by mde-cloe      #+#    #+#                 */
-/*   Updated: 2022/10/20 19:03:30 by mde-cloe      ########   odam.nl         */
+/*   Updated: 2022/10/31 18:23:57 by mde-cloe      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,14 +19,14 @@
 
 typedef struct s_stack
 {
-	t_stack	*next;
-	t_stack	*prev;
-	int		nbr;
+	int				nbr;
+	struct s_stack	*next;
+	struct s_stack	*prev;
 }	t_stack;
 
 //parsing
 int		*input_to_array(int arrlen, char **argv);
-int		*normalize(int *nbrs, int arrlen);
+void	normalize_nbrs(int *nbrs, int arrlen);
 int		*intarr_dup( int *src, int size);
 bool	contains_doubles(int *nbrs, int arrlen);
 
@@ -34,7 +34,17 @@ bool	contains_doubles(int *nbrs, int arrlen);
 void	bubble_sort(int *nbrs, int arrlen);
 
 //utils
-void	error_exit(void);
+void	error_exit(char *str);
 void	print_array(int *nbrs, int arrlen);
+t_stack	*new_node(int nbr);
 
+//init list
+t_stack	*arr_to_list(int *arr, int arrlen);
+t_stack	*init_stack_a(int *arr, int arrlen);
+
+//operations
+void	swap(t_stack *stack, char c);
+void	super_swap(t_stack *stack_a, t_stack *stack_b);
+t_stack	*yoink_node(t_stack **stack);
+void	push(t_stack **src, t_stack **dest, char c);
 #endif

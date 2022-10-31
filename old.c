@@ -1,36 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   main.c                                             :+:    :+:            */
+/*   old.c                                              :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: mde-cloe <mde-cloe@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2022/10/18 17:47:49 by mde-cloe      #+#    #+#                 */
-/*   Updated: 2022/10/31 18:46:37 by mde-cloe      ########   odam.nl         */
+/*   Created: 2022/10/31 13:34:02 by mde-cloe      #+#    #+#                 */
+/*   Updated: 2022/10/31 13:34:13 by mde-cloe      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-int	main(int argc, char **argv)
+void	swap_a_old(t_stack *stack_a)
 {
-	int			*nbrs;
-	t_stack		*stack_a;
-	t_stack		*stack_b;
-	const int	arrlen = argc - 1;
+	t_stack	*temp_next;
+	t_stack	*temp_prev;
 
-	if (argc < 3)
-	{
-		if (argc < 2)
-			ft_printf("ERROR\n");
-		return (0);
-	}
-	nbrs = input_to_array(arrlen, argv);
-	stack_a = init_stack_a(nbrs, arrlen);
-	stack_b = NULL;
-	print_array(nbrs, arrlen);
-	free(nbrs);
-	push(&stack_a, &stack_b, 'b');
-	ft_printf("%d\n", stack_b->nbr);
-	return (0);
+	temp_next = stack_a->next;
+	temp_prev = stack_a->prev;
+	stack_a->next = stack_a->next->next;
+	stack_a->prev = temp_next;
+	stack_a = stack_a->prev;
+	stack_a->next = stack_a->prev;
+	stack_a->prev = temp_prev;
+	//wish i had my notebook for this
+	//also have to do a check for "Do nothing if there is only one or no elements."
+	ft_printf("sa\n");
 }

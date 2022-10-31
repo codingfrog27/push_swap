@@ -6,7 +6,7 @@
 /*   By: mde-cloe <mde-cloe@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/10/19 20:42:44 by mde-cloe      #+#    #+#                 */
-/*   Updated: 2022/10/19 21:51:31 by mde-cloe      ########   odam.nl         */
+/*   Updated: 2022/10/31 13:39:53 by mde-cloe      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ int	*intarr_dup( int *src, int size)
 	i = 0;
 	copy = (int *)malloc(sizeof(int) * size);
 	if (!copy)
-		error_exit();
+		error_exit("malloc fail");
 	while (i < size)
 	{
 		copy[i] = src[i];
@@ -66,27 +66,9 @@ void	print_array(int *nbrs, int arrlen)
 	}
 }
 
-void	error_exit(void)
+void	error_exit(char *str)
 {
-	ft_printf("\033[0;31mERROR\n");
+	ft_printf("\033[0;31mERROR\n%s", str);
 	exit(0);
 }
 
-bool	is_valid_input(char *str)
-{
-	int	i;
-
-	i = 0;
-	if (str[i] == '-')
-	{
-		i++;
-		if (!str[i])
-			return (false);
-	}
-	while (str[i])
-	{
-		if (!ft_isdigit((int)str[i]))
-			return (false);
-	}
-	return (true);
-}
