@@ -6,7 +6,7 @@
 /*   By: mde-cloe <mde-cloe@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/10/18 17:47:49 by mde-cloe      #+#    #+#                 */
-/*   Updated: 2022/10/31 18:46:37 by mde-cloe      ########   odam.nl         */
+/*   Updated: 2022/11/01 18:11:28 by mde-cloe      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,31 @@ int	main(int argc, char **argv)
 	stack_b = NULL;
 	print_array(nbrs, arrlen);
 	free(nbrs);
-	push(&stack_a, &stack_b, 'b');
-	ft_printf("%d\n", stack_b->nbr);
+	radix(&stack_a, &stack_b, arrlen);
+	print_list(stack_a, arrlen);
+	free_list(stack_a, arrlen);
 	return (0);
+}
+
+void	free_list(t_stack *stack, int len)
+{
+	t_stack	*temp;
+
+	while (len > 0)
+	{
+		temp = stack->next;
+		free(stack);
+		stack = temp;
+		len--;
+	}
+}
+
+void	print_list(t_stack *stack, int len)
+{
+	while (len > 0)
+	{
+		ft_printf("%d\n", stack->nbr);
+		stack = stack->next;
+		len--;
+	}
 }

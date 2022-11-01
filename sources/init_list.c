@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   new.c                                              :+:    :+:            */
+/*   init_list.c                                        :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: mde-cloe <mde-cloe@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/10/20 19:00:11 by mde-cloe      #+#    #+#                 */
-/*   Updated: 2022/10/31 13:40:02 by mde-cloe      ########   odam.nl         */
+/*   Updated: 2022/11/01 15:27:36 by mde-cloe      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,6 @@
 
 t_stack	*init_stack_a(int *arr, int arrlen)
 {
-	//might currently segfault if there's only 1 nbr!
 	int		i;
 	t_stack	*stack_a;
 	t_stack	*head;
