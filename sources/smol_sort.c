@@ -6,7 +6,7 @@
 /*   By: mde-cloe <mde-cloe@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/11/01 18:59:36 by mde-cloe      #+#    #+#                 */
-/*   Updated: 2022/11/03 19:20:00 by mde-cloe      ########   odam.nl         */
+/*   Updated: 2022/11/03 19:39:28 by mde-cloe      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,17 +38,8 @@ void	sort_3(t_stack **stack)
 	}
 }
 
-void	sort_4(t_stack **stack_a, t_stack **stack_b, int len)
-{
-	push_lowest(stack_a, stack_b, len);
-	sort_3(stack_a);
-	push('a', stack_b, stack_a);
-}
-
 void	sort_select(t_stack **stack_a, t_stack **stack_b, int len)
 {
-	//after all the small sorts are written,
-	//  make a lil function ptr array? that we can index directly into :)
 	if (len > 39)
 		radix(stack_a, stack_b, len);
 	else
@@ -62,21 +53,6 @@ void	sort_select(t_stack **stack_a, t_stack **stack_b, int len)
 		while (*stack_b)
 			push('a', stack_b, stack_a);
 	}
-	// 	sort_3(stack_a);
-	// else if (len == 4)
-	// {
-	// 	push_lowest(stack_a, stack_b, len);
-	// 	sort_3(stack_a);
-	// 	push('a', stack_b, stack_a);
-	// }
-	// else if (len == 5)
-	// {
-	// 	push_lowest(stack_a, stack_b, len);
-	// 	push_lowest(stack_a, stack_b, len);
-	// 	sort_3(stack_a);
-	// 	push('a', stack_b, stack_a);
-	// 	push('a', stack_b, stack_a);
-	// }
 }
 
 int	find_baby_pos(t_stack **stack_a, int len)
@@ -99,9 +75,6 @@ int	find_baby_pos(t_stack **stack_a, int len)
 		i++;
 	}
 	return (babypos);
-//am I ever gonna use this multiple times in the same stack? cause if not
-//I could make it a lot simpler by checking while baby != 0 instead, since
-// that will always be the lowest
 }
 
 void	push_lowest(t_stack **stack_a, t_stack **stack_b, int len)

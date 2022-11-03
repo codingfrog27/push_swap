@@ -6,7 +6,7 @@
 /*   By: mde-cloe <mde-cloe@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/10/19 20:42:44 by mde-cloe      #+#    #+#                 */
-/*   Updated: 2022/11/02 18:38:58 by mde-cloe      ########   odam.nl         */
+/*   Updated: 2022/11/03 19:56:22 by mde-cloe      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,8 @@ void	print_array(int *nbrs, int arrlen)
 
 void	error_exit(char *str)
 {
-	ft_printf("\033[0;31mERROR\n%s", str);
+	ft_printf("\033[0;31%s\n", str);
+	write(2, "ERROR\n", 7);
 	exit(0);
 }
 
