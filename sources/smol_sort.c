@@ -6,28 +6,11 @@
 /*   By: mde-cloe <mde-cloe@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/11/01 18:59:36 by mde-cloe      #+#    #+#                 */
-/*   Updated: 2022/11/03 17:36:57 by mde-cloe      ########   odam.nl         */
+/*   Updated: 2022/11/03 18:02:03 by mde-cloe      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
-
-// void	smol_sort(t_stack **stack, int len)
-// {
-// 	int	i;
-// 	int	j;
-
-// 	i = 0;
-// 	j = 0;
-// 	while (i < len)
-// 	{
-// 		while (j + 1 < len - i)
-// 		{
-// 			if ((*stack)->nbr > (*stack)->next->nbr)
-// 				rev_rotate('a', stack);
-// 		}
-// 	}
-// }
 
 void	sort_3(t_stack **stack)
 {
