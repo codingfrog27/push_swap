@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   radix.c                                            :+:    :+:            */
+/*   sorting.c                                          :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: mde-cloe <mde-cloe@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/10/20 14:38:46 by mde-cloe      #+#    #+#                 */
-/*   Updated: 2022/11/01 18:59:27 by mde-cloe      ########   odam.nl         */
+/*   Updated: 2022/11/03 17:29:31 by mde-cloe      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,7 @@ int	get_max_bits(int list_len)
 {
 	int	max_bits;
 
+	max_bits = 0;
 	while ((list_len - 1) >> max_bits != 0)
 		max_bits++;
 	return (max_bits);
@@ -29,13 +30,13 @@ int	get_max_bits(int list_len)
 
 void	radix(t_stack **stack_a, t_stack **stack_b, int list_len)
 {
-	const int	max_bits = get_max_bits(list_len);
+	// const int	max_bits = get_max_bits(list_len);
 	int			i;
 	int			j;
 
 	i = 0;
 	j = 0;
-	while (i < max_bits)
+	while (!is_sorted(*stack_a))
 	{
 		while (j < list_len)
 		{
@@ -49,5 +50,30 @@ void	radix(t_stack **stack_a, t_stack **stack_b, int list_len)
 			push('a', stack_b, stack_a);
 		j = 0;
 		i++;
+	}
+}
+
+void	bubble_sort(int *nbrs, int arrlen)
+{
+	int	i;
+	int	j;
+	int	temp;
+
+	i = 0;
+	j = 0;
+	while (i < arrlen)
+	{
+		while (j + 1 < arrlen - i)
+		{
+			if (nbrs[j] > nbrs[j + 1])
+			{
+				temp = nbrs[j];
+				nbrs[j] = nbrs[j + 1];
+				nbrs[j + 1] = temp;
+			}
+			j++;
+		}
+		i++;
+		j = 0;
 	}
 }

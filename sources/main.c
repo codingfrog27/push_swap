@@ -6,7 +6,7 @@
 /*   By: mde-cloe <mde-cloe@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/10/18 17:47:49 by mde-cloe      #+#    #+#                 */
-/*   Updated: 2022/11/01 18:11:28 by mde-cloe      ########   odam.nl         */
+/*   Updated: 2022/11/03 15:04:08 by mde-cloe      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,20 +19,17 @@ int	main(int argc, char **argv)
 	t_stack		*stack_b;
 	const int	arrlen = argc - 1;
 
-	if (argc < 3)
+	if (argc > 2)
 	{
-		if (argc < 2)
-			ft_printf("ERROR\n");
-		return (0);
+		nbrs = input_to_array(arrlen, argv);
+		stack_a = init_stack_a(nbrs, arrlen);
+		stack_b = NULL;
+		free(nbrs);
+		if (!is_sorted(stack_a))
+			sort_select(&stack_a, &stack_b, arrlen);
+		// print_list(stack_a, arrlen);
+		free_list(stack_a, arrlen);
 	}
-	nbrs = input_to_array(arrlen, argv);
-	stack_a = init_stack_a(nbrs, arrlen);
-	stack_b = NULL;
-	print_array(nbrs, arrlen);
-	free(nbrs);
-	radix(&stack_a, &stack_b, arrlen);
-	print_list(stack_a, arrlen);
-	free_list(stack_a, arrlen);
 	return (0);
 }
 
@@ -45,16 +42,6 @@ void	free_list(t_stack *stack, int len)
 		temp = stack->next;
 		free(stack);
 		stack = temp;
-		len--;
-	}
-}
-
-void	print_list(t_stack *stack, int len)
-{
-	while (len > 0)
-	{
-		ft_printf("%d\n", stack->nbr);
-		stack = stack->next;
 		len--;
 	}
 }

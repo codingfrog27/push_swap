@@ -6,7 +6,7 @@
 /*   By: mde-cloe <mde-cloe@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/10/18 17:48:11 by mde-cloe      #+#    #+#                 */
-/*   Updated: 2022/11/01 19:07:39 by mde-cloe      ########   odam.nl         */
+/*   Updated: 2022/11/03 14:59:59 by mde-cloe      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ t_stack	*arr_to_list(int *arr, int arrlen);
 t_stack	*init_stack_a(int *arr, int arrlen);
 
 //operations
-void	swap(t_stack *stack, char c);
+void	swap(char c, t_stack *stack);
 void	double_swap(t_stack *stack_a, t_stack *stack_b);
 t_stack	*yoink_node(t_stack **stack);
 void	push(char c, t_stack **src, t_stack **dest);
@@ -56,4 +56,8 @@ void	rotate(char c, t_stack **stack);
 void	rev_rotate(char c, t_stack **stack);
 void	double_rotate(t_stack **stack_a, t_stack **stack_b);
 void	double_rev_rotate(t_stack **stack_a, t_stack **stack_b);
+
+void	sort_3(t_stack **stack);
+bool	is_sorted(t_stack *stack);
+void	sort_select(t_stack **stack_a, t_stack **stack_b, int arrlen);
 #endif

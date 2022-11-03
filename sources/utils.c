@@ -6,7 +6,7 @@
 /*   By: mde-cloe <mde-cloe@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/10/19 20:42:44 by mde-cloe      #+#    #+#                 */
-/*   Updated: 2022/10/31 13:39:53 by mde-cloe      ########   odam.nl         */
+/*   Updated: 2022/11/02 18:38:58 by mde-cloe      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,31 +29,6 @@ int	*intarr_dup( int *src, int size)
 	return (copy);
 }
 
-void	bubble_sort(int *nbrs, int arrlen)
-{
-	int	i;
-	int	j;
-	int	temp;
-
-	i = 0;
-	j = 0;
-	while (i < arrlen)
-	{
-		while (j + 1 < arrlen - i)
-		{
-			if (nbrs[j] > nbrs[j + 1])
-			{
-				temp = nbrs[j];
-				nbrs[j] = nbrs[j + 1];
-				nbrs[j + 1] = temp;
-			}
-			j++;
-		}
-		i++;
-		j = 0;
-	}
-}
-
 void	print_array(int *nbrs, int arrlen)
 {
 	int	i;
@@ -72,3 +47,36 @@ void	error_exit(char *str)
 	exit(0);
 }
 
+t_stack	*new_node(int nbr)
+{
+	t_stack	*node;
+
+	node = ft_calloc(1, sizeof(t_stack));
+	if (!node)
+		error_exit("malloc fail");
+	node->nbr = nbr;
+	return (node);
+}
+
+void	print_list(t_stack *stack, int len)
+{
+	while (len > 0)
+	{
+		ft_printf("%d\n", stack->nbr);
+		stack = stack->next;
+		len--;
+	}
+}
+
+bool	is_sorted(t_stack *stack)
+{
+	const t_stack *head = stack;
+
+	while (stack->next != head)
+	{
+		if (stack->nbr > stack->next->nbr)
+			return (false);
+		stack = stack->next;
+	}
+	return (true);
+}

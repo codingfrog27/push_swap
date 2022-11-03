@@ -6,13 +6,13 @@
 /*   By: mde-cloe <mde-cloe@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/10/30 22:13:33 by mde-cloe      #+#    #+#                 */
-/*   Updated: 2022/11/01 17:54:52 by mde-cloe      ########   odam.nl         */
+/*   Updated: 2022/11/02 16:43:57 by mde-cloe      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-void	swap(t_stack *stack, char c)
+void	swap(char c, t_stack *stack)
 {
 	int	tmp;
 
@@ -28,8 +28,8 @@ void	swap(t_stack *stack, char c)
 
 void	double_swap(t_stack *stack_a, t_stack *stack_b)
 {
-	swap(stack_a, 's');
-	swap(stack_b, 's');
+	swap('s', stack_a);
+	swap('s', stack_b);
 	ft_printf("ss\n");
 }
 
