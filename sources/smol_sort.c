@@ -6,7 +6,7 @@
 /*   By: mde-cloe <mde-cloe@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/11/01 18:59:36 by mde-cloe      #+#    #+#                 */
-/*   Updated: 2022/11/03 18:02:03 by mde-cloe      ########   odam.nl         */
+/*   Updated: 2022/11/03 19:20:00 by mde-cloe      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,21 +38,45 @@ void	sort_3(t_stack **stack)
 	}
 }
 
-void	sort_select(t_stack **stack_a, t_stack **stack_b, int len)
-{
-	//after all the small sorts are written,
-	//  make a lil function ptr array? that we can index directly into :)
-	if (len > 3)
-		radix(stack_a, stack_b, len);
-	else
-		sort_3(stack_a);
-}
-
 void	sort_4(t_stack **stack_a, t_stack **stack_b, int len)
 {
 	push_lowest(stack_a, stack_b, len);
 	sort_3(stack_a);
 	push('a', stack_b, stack_a);
+}
+
+void	sort_select(t_stack **stack_a, t_stack **stack_b, int len)
+{
+	//after all the small sorts are written,
+	//  make a lil function ptr array? that we can index directly into :)
+	if (len > 39)
+		radix(stack_a, stack_b, len);
+	else
+	{
+		while (len > 3)
+		{
+			push_lowest(stack_a, stack_b, len);
+			len--;
+		}
+		sort_3(stack_a);
+		while (*stack_b)
+			push('a', stack_b, stack_a);
+	}
+	// 	sort_3(stack_a);
+	// else if (len == 4)
+	// {
+	// 	push_lowest(stack_a, stack_b, len);
+	// 	sort_3(stack_a);
+	// 	push('a', stack_b, stack_a);
+	// }
+	// else if (len == 5)
+	// {
+	// 	push_lowest(stack_a, stack_b, len);
+	// 	push_lowest(stack_a, stack_b, len);
+	// 	sort_3(stack_a);
+	// 	push('a', stack_b, stack_a);
+	// 	push('a', stack_b, stack_a);
+	// }
 }
 
 int	find_baby_pos(t_stack **stack_a, int len)
@@ -66,7 +90,7 @@ int	find_baby_pos(t_stack **stack_a, int len)
 	babypos = 0;
 	while (i < len)
 	{
-		if ((*stack_a)->nbr > baby)
+		if ((*stack_a)->nbr < baby)
 		{
 			baby = (*stack_a)->nbr;
 			babypos = i;
@@ -103,3 +127,5 @@ void	push_lowest(t_stack **stack_a, t_stack **stack_b, int len)
 	}
 	push('b', stack_a, stack_b);
 }
+
+//babypos > len / 2 works out cause index is always one smaller ^^

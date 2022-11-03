@@ -6,7 +6,7 @@
 /*   By: mde-cloe <mde-cloe@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/10/18 17:48:11 by mde-cloe      #+#    #+#                 */
-/*   Updated: 2022/11/03 14:59:59 by mde-cloe      ########   odam.nl         */
+/*   Updated: 2022/11/03 18:16:03 by mde-cloe      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,4 +60,6 @@ void	double_rev_rotate(t_stack **stack_a, t_stack **stack_b);
 void	sort_3(t_stack **stack);
 bool	is_sorted(t_stack *stack);
 void	sort_select(t_stack **stack_a, t_stack **stack_b, int arrlen);
+void	push_lowest(t_stack **stack_a, t_stack **stack_b, int len);
+int		find_baby_pos(t_stack **stack_a, int len);
 #endif

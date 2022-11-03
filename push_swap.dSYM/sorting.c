@@ -6,7 +6,7 @@
 /*   By: mde-cloe <mde-cloe@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/10/20 14:38:46 by mde-cloe      #+#    #+#                 */
-/*   Updated: 2022/11/03 17:29:31 by mde-cloe      ########   odam.nl         */
+/*   Updated: 2022/11/03 18:39:20 by mde-cloe      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,10 +30,9 @@ int	get_max_bits(int list_len)
 
 void	radix(t_stack **stack_a, t_stack **stack_b, int list_len)
 {
-	// const int	max_bits = get_max_bits(list_len);
 	int			i;
 	int			j;
-
+	// const int	max_bits = get_max_bits(list_len);
 	i = 0;
 	j = 0;
 	while (!is_sorted(*stack_a))
