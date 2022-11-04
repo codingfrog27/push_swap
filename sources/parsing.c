@@ -6,7 +6,7 @@
 /*   By: mde-cloe <mde-cloe@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/10/20 16:19:41 by mde-cloe      #+#    #+#                 */
-/*   Updated: 2022/11/02 18:54:23 by mde-cloe      ########   odam.nl         */
+/*   Updated: 2022/11/04 18:24:24 by mde-cloe      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,12 +55,16 @@ void	normalize_nbrs(int *nbrs, int arrlen)
 		while (j < arrlen)
 		{
 			if (nbrs[i] == copy[j])
+			{
 				nbrs[i] = j;
+				ft_printf("hey %d\n", nbrs[i]);
+			}
 			j++;
 		}
 	i++;
 	j = 0;
 	}
+	print_array(nbrs, arrlen);
 	free(copy);
 }
 
@@ -93,12 +97,12 @@ int	*input_to_array(int arrlen, char **argv)
 	nbrs = ft_calloc(sizeof(int), arrlen);
 	if (!nbrs)
 		error_exit("malloc fail");
-	i = 0;
-	while (i < arrlen)
+	i = 1;
+	while (argv[i])
 	{
-		if (!is_valid_input(argv[i + 1]))
+		if (!is_valid_input(argv[i]))
 			error_exit("invalid input");
-		nbrs[i] = ft_atoi(argv[i + 1]);
+		nbrs[i] = ft_atoi(argv[i]);
 		i++;
 	}
 	if (contains_doubles(nbrs, arrlen))
