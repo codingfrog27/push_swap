@@ -6,7 +6,7 @@
 /*   By: mde-cloe <mde-cloe@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/10/18 17:47:49 by mde-cloe      #+#    #+#                 */
-/*   Updated: 2022/11/04 18:22:21 by mde-cloe      ########   odam.nl         */
+/*   Updated: 2022/11/07 21:01:04 by mde-cloe      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,12 +22,11 @@ int	main(int argc, char **argv)
 	if (argc > 2)
 	{
 		nbrs = input_to_array(arrlen, argv);
-		print_array(nbrs, arrlen);
 		stack_a = init_stack_a(nbrs, arrlen);
 		stack_b = NULL;
 		free(nbrs);
-		// if (!is_sorted(stack_a))
-		// 	sort_select(&stack_a, &stack_b, arrlen);
+		if (!is_sorted(stack_a))
+			sort_select(&stack_a, &stack_b, arrlen);
 		print_list(stack_a, arrlen);
 		free_list(stack_a, arrlen);
 	}

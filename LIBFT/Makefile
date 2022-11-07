@@ -6,7 +6,7 @@
 #    By: mde-cloe <mde-cloe@student.42.fr>            +#+                      #
 #                                                    +#+                       #
 #    Created: 2021/12/13 18:00:17 by mde-cloe      #+#    #+#                  #
-#    Updated: 2022/10/14 20:18:25 by mde-cloe      ########   odam.nl          #
+#    Updated: 2022/11/07 19:46:16 by mde-cloe      ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
@@ -72,7 +72,7 @@ SRCS := ft_atoi.c \
 
 OFILES := $(SRCS:.c=.o)
 
-CFLAGS ?= -Wall -Wextra -Werror
+CFLAGS ?= -Wall -Wextra -Werror -g
 
 all: $(NAME)
 

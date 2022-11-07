@@ -6,7 +6,7 @@
 /*   By: mde-cloe <mde-cloe@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/10/20 16:19:41 by mde-cloe      #+#    #+#                 */
-/*   Updated: 2022/11/04 18:24:24 by mde-cloe      ########   odam.nl         */
+/*   Updated: 2022/11/07 20:49:05 by mde-cloe      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,14 +29,6 @@ static bool	is_valid_input(char *str)
 			return (false);
 		i++;
 	}
-	if (i > 9)
-	{
-		if (i == 10 && str[i - 1] != '8' && str[i - 1] != '9')
-			return (true);
-		if (i == 11 && str[0] == '-' && str[i - 1] != '9')
-			return (true);
-		return (false);
-	}
 	return (true);
 }
 
@@ -55,16 +47,12 @@ void	normalize_nbrs(int *nbrs, int arrlen)
 		while (j < arrlen)
 		{
 			if (nbrs[i] == copy[j])
-			{
 				nbrs[i] = j;
-				ft_printf("hey %d\n", nbrs[i]);
-			}
 			j++;
 		}
 	i++;
 	j = 0;
 	}
-	print_array(nbrs, arrlen);
 	free(copy);
 }
 
@@ -80,7 +68,7 @@ bool	contains_doubles(int *nbrs, int arrlen)
 		while (j < arrlen)
 		{
 			if (nbrs[i] == nbrs[j])
-				return (true);
+				error_exit("contains dobules", nbrs);
 			j++;
 		}
 		i++;
@@ -91,24 +79,23 @@ bool	contains_doubles(int *nbrs, int arrlen)
 
 int	*input_to_array(int arrlen, char **argv)
 {
-	int	*nbrs;
-	int	i;
+	int		*nbrs;
+	int		i;
+	long	tmp;
 
 	nbrs = ft_calloc(sizeof(int), arrlen);
 	if (!nbrs)
-		error_exit("malloc fail");
+		error_exit("malloc fail", nbrs);
 	i = 1;
 	while (argv[i])
 	{
 		if (!is_valid_input(argv[i]))
-			error_exit("invalid input");
-		nbrs[i] = ft_atoi(argv[i]);
+			error_exit("invalid input", nbrs);
+		tmp = ft_atoi(argv[i]);
+		if (tmp > INT_MAX || tmp < INT_MIN)
+			error_exit("hey Int overflow", nbrs);
+		nbrs[i - 1] = (int)tmp;
 		i++;
-	}
-	if (contains_doubles(nbrs, arrlen))
-	{
-		free(nbrs);
-		error_exit("contains double digits");
 	}
 	normalize_nbrs(nbrs, arrlen);
 	return (nbrs);
@@ -120,14 +107,16 @@ t_stack	*init_stack_a(int *arr, int arrlen)
 	t_stack	*stack_a;
 	t_stack	*head;
 
-	i = 0;
-	stack_a = new_node(arr[i]);
+	i = 1;
+	stack_a = new_node(arr[0]);
+	if (!stack_a)
+		error_exit("malloc fail", arr);
 	head = stack_a;
 	// ft_printf("node %i = %i\n", i, stack_a->nbr);
-	i++;
 	while (i < arrlen)
 	{
 		stack_a->next = new_node(arr[i]);
+		node_check(stack_a, i, arr);
 		stack_a->next->prev = stack_a;
 		stack_a = stack_a->next;
 		// ft_printf("node %i = %i\n", i, stack_a->nbr);
@@ -136,7 +125,21 @@ t_stack	*init_stack_a(int *arr, int arrlen)
 	stack_a->next = head;
 	stack_a->next->prev = stack_a;
 	return (head);
-	// remove printf's
-	//  and if the stack is upside down switch next and prev in the loop :)
-	// (list is circular though so idk how much it matters)
+}
+
+void	node_check(t_stack *list, int len, int *nbrs)
+{
+	t_stack	*tmp;
+
+	if (!list->next)
+	{
+		while (len > 0)
+		{
+			tmp = list->prev;
+			free(list);
+			list = tmp;
+			len--;
+		}
+		error_exit("malloc fail", nbrs);
+	}
 }

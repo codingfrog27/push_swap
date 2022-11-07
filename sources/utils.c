@@ -6,7 +6,7 @@
 /*   By: mde-cloe <mde-cloe@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/10/19 20:42:44 by mde-cloe      #+#    #+#                 */
-/*   Updated: 2022/11/03 19:56:22 by mde-cloe      ########   odam.nl         */
+/*   Updated: 2022/11/07 20:49:55 by mde-cloe      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ int	*intarr_dup( int *src, int size)
 	i = 0;
 	copy = (int *)malloc(sizeof(int) * size);
 	if (!copy)
-		error_exit("malloc fail");
+		error_exit("malloc fail", src);
 	while (i < size)
 	{
 		copy[i] = src[i];
@@ -41,9 +41,10 @@ void	print_array(int *nbrs, int arrlen)
 	}
 }
 
-void	error_exit(char *str)
+void	error_exit(char *str, int	*nbr)
 {
-	ft_printf("\033[0;31%s\n", str);
+	free(nbr);
+	ft_printf("\033[0;31 %s\n", str);
 	write(2, "ERROR\n", 7);
 	exit(0);
 }
@@ -54,7 +55,7 @@ t_stack	*new_node(int nbr)
 
 	node = ft_calloc(1, sizeof(t_stack));
 	if (!node)
-		error_exit("malloc fail");
+		return (NULL);
 	node->nbr = nbr;
 	return (node);
 }
@@ -71,7 +72,7 @@ void	print_list(t_stack *stack, int len)
 
 bool	is_sorted(t_stack *stack)
 {
-	const t_stack *head = stack;
+	const t_stack	*head = stack;
 
 	while (stack->next != head)
 	{

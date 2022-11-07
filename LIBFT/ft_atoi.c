@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   ft_atoi.c                                          :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: mde-cloe <mde-cloe@student.42.fr>          +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/12/13 18:00:40 by mde-cloe          #+#    #+#             */
-/*   Updated: 2021/12/13 18:06:56 by mde-cloe         ###   ########.fr       */
+/*                                                        ::::::::            */
+/*   ft_atoi.c                                          :+:    :+:            */
+/*                                                     +:+                    */
+/*   By: mde-cloe <mde-cloe@student.42.fr>            +#+                     */
+/*                                                   +#+                      */
+/*   Created: 2021/12/13 18:00:40 by mde-cloe      #+#    #+#                 */
+/*   Updated: 2022/11/07 17:38:31 by mde-cloe      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ static int	search_string(char *set, char c)
 	return (0);
 }
 
-int	ft_atoi(const char	*str)
+long	ft_atoi(const char	*str)
 {
 	size_t	i;
 	long	result;

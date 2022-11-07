@@ -6,7 +6,7 @@
 /*   By: mde-cloe <mde-cloe@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/10/18 17:48:11 by mde-cloe      #+#    #+#                 */
-/*   Updated: 2022/11/03 18:16:03 by mde-cloe      ########   odam.nl         */
+/*   Updated: 2022/11/07 18:19:36 by mde-cloe      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 
 # include <stdbool.h>
 # include <stdlib.h>
+# include <limits.h>
 # include "libft.h"
 
 typedef struct s_stack
@@ -36,7 +37,8 @@ void	radix(t_stack **stack_a, t_stack **stack_b, int list_len);
 int		get_max_bits(int list_len);
 
 //utils
-void	error_exit(char *str);
+void	error_exit(char *str, int *nbr);
+void	node_check(t_stack *list, int len, int *nbrs);
 void	print_array(int *nbrs, int arrlen);
 t_stack	*new_node(int nbr);
 void	free_list(t_stack *stack, int len);

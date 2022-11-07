@@ -6,7 +6,7 @@
 #    By: mde-cloe <mde-cloe@student.codam.nl>         +#+                      #
 #                                                    +#+                       #
 #    Created: 2022/10/19 17:10:41 by mde-cloe      #+#    #+#                  #
-#    Updated: 2022/11/03 16:44:44 by mde-cloe      ########   odam.nl          #
+#    Updated: 2022/11/07 21:00:20 by mde-cloe      ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
@@ -32,6 +32,60 @@ SRC_DIR	:=	sources/
 OBJ_DIR	:=	objects/
 SOURCES	:=	$(addprefix $(SRC_DIR), $(SOURCEFILES))
 OBJS	:=	$(addprefix $(OBJ_DIR), $(OFILES))
+
+#-----------------Utils-----------------
+
+5_NBRS := $(shell jot -r 5 -2147483648 2147483647)
+50_NBRS := $(shell jot -r 50 -2147483648 2147483647)
+100_NBRS := $(shell jot -r 100 -2147483648 2147483647)
+500_NBRS := $(shell jot -r 500 -2147483648 2147483647)
+1000_NBRS := $(shell jot -r 1000 -2147483648 2147483647)
+
+#-----------------targets---------------
+
+all: $(NAME)
+
+$(NAME): $(OBJ_DIR) $(OBJS) $(SRCS)
+	@$(CC) $(OBJS) $(COMPIL_FLAGS) $(LINKFLAGS) LIBFT/libft.a
+	@printf "\n$(C_GREEN)compiling! $(C_ORANGE)$@\n\n **$(C_BOLD)$(C_CYAN)all done <3$(C_ORANGE)s**\n$(C_RESET)"
+
+$(OBJ_DIR)%.o : $(SRC_DIR)%.c | $(OBJ_DIR)
+	@$(CC) -c $< $(COMPIL_FLAGS) $(LINKFLAGS) && printf "$(C_GREEN)Compiling $(C_CYAN)$(notdir $<) \n$(C_RESET)"
+
+$(OBJ_DIR):
+	@mkdir $(OBJ_DIR)
+
+5: $(NAME) $(OBJS) $(SRCS)
+	@./push_swap $(5_NBRS) | wc -l
+
+50: $(NAME) $(OBJS) $(SRCS)
+	./push_swap $(50_NBRS)
+
+100: $(NAME) $(OBJS) $(SRCS)
+	./push_swap $(100_NBRS)
+
+500: $(NAME) $(OBJS) $(SRCS)
+	./push_swap $(500_NBRS)
+
+1000: $(NAME) $(OBJS) $(SRCS)
+	./push_swap $(1000_NBRS)
+
+
+clean:
+	@$(RM) -rf $(OBJ_DIR)
+	@printf "$(C_RED)Files cleaned\n$(C_RESET)"
+
+fclean: clean
+	@rm -f $(NAME)
+
+re: fclean all
+
+
+
+
+
+
+
 
 #colours---------------
 
@@ -64,29 +118,3 @@ C_DVIOLET	= \x1b[38;2;64;0;255m
 
 C_RESET	= \x1b[0m
 C_BOLD	= \x1b[1m
-
-#targets---------------
-
-all: $(NAME)
-
-$(NAME): $(OBJ_DIR) $(OBJS) $(SRCS)
-	@$(CC) $(OBJS) $(COMPIL_FLAGS) $(LINKFLAGS) LIBFT/libft.a
-	@printf "\n$(C_GREEN)compiling! $(C_ORANGE)$@\n\n **$(C_BOLD)$(C_CYAN)all done <3$(C_ORANGE)s**\n"
-
-$(OBJ_DIR)%.o : $(SRC_DIR)%.c | $(OBJ_DIR)
-	@$(CC) -c $< $(COMPIL_FLAGS) $(LINKFLAGS) && printf "$(C_GREEN)Compiling $(C_CYAN)$(notdir $<) \n$(C_RESET)"
-
-$(OBJ_DIR):
-	@mkdir $(OBJ_DIR)
-
-run: $(NAME) $(OBJS) $(SRCS)
-	./push_swap
-
-clean:
-	@$(RM) -rf $(OBJ_DIR)
-	@printf "$(C_RED)Files cleaned\n$(C_RESET)"
-
-fclean: clean
-	@rm -f $(NAME)
-
-re: fclean all
