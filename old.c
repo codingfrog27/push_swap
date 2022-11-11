@@ -6,7 +6,7 @@
 /*   By: mde-cloe <mde-cloe@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/10/31 13:34:02 by mde-cloe      #+#    #+#                 */
-/*   Updated: 2022/11/07 20:40:09 by mde-cloe      ########   odam.nl         */
+/*   Updated: 2022/11/09 15:28:12 by mde-cloe      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,4 +54,14 @@ void	sort_3_old(t_stack **stack)
 		swap('a', *stack);
 		rotate('a', stack);
 	}
+}
+
+int	get_max_bits(int list_len)
+{
+	int	max_bits;
+
+	max_bits = 0;
+	while ((list_len - 1) >> max_bits != 0)
+		max_bits++;
+	return (max_bits);
 }

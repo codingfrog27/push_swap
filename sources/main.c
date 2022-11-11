@@ -6,7 +6,7 @@
 /*   By: mde-cloe <mde-cloe@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/10/18 17:47:49 by mde-cloe      #+#    #+#                 */
-/*   Updated: 2022/11/07 21:01:04 by mde-cloe      ########   odam.nl         */
+/*   Updated: 2022/11/09 21:19:09 by mde-cloe      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,29 +19,15 @@ int	main(int argc, char **argv)
 	t_stack		*stack_b;
 	const int	arrlen = argc - 1;
 
-	if (argc > 2)
+	if (argc > 1)
 	{
-		nbrs = input_to_array(arrlen, argv);
-		stack_a = init_stack_a(nbrs, arrlen);
+		nbrs = intit_array(arrlen, argv);
+		stack_a = init_list(nbrs, arrlen);
 		stack_b = NULL;
 		free(nbrs);
 		if (!is_sorted(stack_a))
 			sort_select(&stack_a, &stack_b, arrlen);
-		print_list(stack_a, arrlen);
 		free_list(stack_a, arrlen);
 	}
 	return (0);
-}
-
-void	free_list(t_stack *stack, int len)
-{
-	t_stack	*temp;
-
-	while (len > 0)
-	{
-		temp = stack->next;
-		free(stack);
-		stack = temp;
-		len--;
-	}
 }

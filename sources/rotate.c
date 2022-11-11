@@ -6,7 +6,7 @@
 /*   By: mde-cloe <mde-cloe@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/11/01 15:00:08 by mde-cloe      #+#    #+#                 */
-/*   Updated: 2022/11/01 15:09:14 by mde-cloe      ########   odam.nl         */
+/*   Updated: 2022/11/09 16:35:31 by mde-cloe      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ void	double_rotate(t_stack **stack_a, t_stack **stack_b)
 void	rev_rotate(char c, t_stack **stack)
 {
 	*stack = (*stack)->prev;
-	ft_printf("r%c\n", c);
+	ft_printf("rr%c\n", c);
 }
 
 void	double_rev_rotate(t_stack **stack_a, t_stack **stack_b)

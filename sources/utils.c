@@ -6,28 +6,11 @@
 /*   By: mde-cloe <mde-cloe@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/10/19 20:42:44 by mde-cloe      #+#    #+#                 */
-/*   Updated: 2022/11/07 20:49:55 by mde-cloe      ########   odam.nl         */
+/*   Updated: 2022/11/09 17:06:37 by mde-cloe      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
-
-int	*intarr_dup( int *src, int size)
-{
-	int	i;
-	int	*copy;
-
-	i = 0;
-	copy = (int *)malloc(sizeof(int) * size);
-	if (!copy)
-		error_exit("malloc fail", src);
-	while (i < size)
-	{
-		copy[i] = src[i];
-		i++;
-	}
-	return (copy);
-}
 
 void	print_array(int *nbrs, int arrlen)
 {
@@ -41,23 +24,11 @@ void	print_array(int *nbrs, int arrlen)
 	}
 }
 
-void	error_exit(char *str, int	*nbr)
+void	error_exit(int	*nbr)
 {
 	free(nbr);
-	ft_printf("\033[0;31 %s\n", str);
-	write(2, "ERROR\n", 7);
+	write(2, "Error\n", 7);
 	exit(0);
-}
-
-t_stack	*new_node(int nbr)
-{
-	t_stack	*node;
-
-	node = ft_calloc(1, sizeof(t_stack));
-	if (!node)
-		return (NULL);
-	node->nbr = nbr;
-	return (node);
 }
 
 void	print_list(t_stack *stack, int len)
@@ -81,4 +52,17 @@ bool	is_sorted(t_stack *stack)
 		stack = stack->next;
 	}
 	return (true);
+}
+
+void	free_list(t_stack *stack, int len)
+{
+	t_stack	*temp;
+
+	while (len > 0)
+	{
+		temp = stack->next;
+		free(stack);
+		stack = temp;
+		len--;
+	}
 }

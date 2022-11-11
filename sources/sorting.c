@@ -1,78 +1,106 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   sorting.c                                          :+:    :+:            */
+/*   smol_sort.c                                        :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: mde-cloe <mde-cloe@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2022/10/20 14:38:46 by mde-cloe      #+#    #+#                 */
-/*   Updated: 2022/11/03 18:39:20 by mde-cloe      ########   odam.nl         */
+/*   Created: 2022/11/01 18:59:36 by mde-cloe      #+#    #+#                 */
+/*   Updated: 2022/11/09 17:11:08 by mde-cloe      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
-
 /**
- * @brief sees how many how many times we need to bitshift right
- * to make the biggest normalised nr (which == list_len - 1!!) 0
- * @param arrlen
- * @return int
+ * @brief sorts 3 in a hardcoded way, wrote it so that
+ * it always looks where the 2 is
+ * (if only we could use switch statements ;-;)
+ * @param stack
  */
-int	get_max_bits(int list_len)
+static void	sort_3(t_stack **stack)
 {
-	int	max_bits;
+	const int	top = (*stack)->nbr;
+	const int	mid = (*stack)->next->nbr;
+	const int	bot = (*stack)->prev->nbr;
 
-	max_bits = 0;
-	while ((list_len - 1) >> max_bits != 0)
-		max_bits++;
-	return (max_bits);
-}
-
-void	radix(t_stack **stack_a, t_stack **stack_b, int list_len)
-{
-	int			i;
-	int			j;
-	// const int	max_bits = get_max_bits(list_len);
-	i = 0;
-	j = 0;
-	while (!is_sorted(*stack_a))
+	if (mid > bot && mid < top)
 	{
-		while (j < list_len)
-		{
-			if ((((*stack_a)->nbr >> i) & 1) == 1)
-				rotate('a', stack_a);
-			else
-				push('b', stack_a, stack_b);
-			j++;
-		}
-		while (*stack_b)
-			push('a', stack_b, stack_a);
-		j = 0;
-		i++;
+		swap('a', *stack);
+		rev_rotate('a', stack);
 	}
+	else if (top > mid && top < bot)
+		swap('a', *stack);
+	else if (bot > mid && bot < top)
+		rotate('a', stack);
+	else if (bot > top && bot < mid)
+	{
+		swap('a', *stack);
+		rotate('a', stack);
+	}
+	else if (top < mid && top > bot)
+		rev_rotate('a', stack);
 }
 
-void	bubble_sort(int *nbrs, int arrlen)
+static int	find_lowest_pos(t_stack **stack_a, int len)
 {
 	int	i;
-	int	j;
-	int	temp;
+	int	baby;
+	int	babypos;
 
 	i = 0;
-	j = 0;
-	while (i < arrlen)
+	baby = (*stack_a)->nbr;
+	babypos = 0;
+	while (i < len)
 	{
-		while (j + 1 < arrlen - i)
+		if ((*stack_a)->nbr < baby)
 		{
-			if (nbrs[j] > nbrs[j + 1])
-			{
-				temp = nbrs[j];
-				nbrs[j] = nbrs[j + 1];
-				nbrs[j + 1] = temp;
-			}
-			j++;
+			baby = (*stack_a)->nbr;
+			babypos = i;
 		}
+		*stack_a = (*stack_a)->next;
 		i++;
-		j = 0;
+	}
+	return (babypos);
+}
+
+static void	push_lowest(t_stack **stack_a, t_stack **stack_b, int len)
+{
+	int	babypos;
+
+	babypos = find_lowest_pos(stack_a, len);
+	if (babypos > (len / 2))
+	{
+		while (babypos < len)
+		{
+			rev_rotate('a', stack_a);
+			babypos++;
+		}
+	}
+	else
+	{
+		while (babypos > 0)
+		{
+			rotate('a', stack_a);
+			babypos--;
+		}
+	}
+	push('b', stack_a, stack_b);
+}
+
+void	sort_select(t_stack **stack_a, t_stack **stack_b, int len)
+{
+	if (len > 55)
+		radix(stack_a, stack_b, len);
+	else
+	{
+		while (len > 3)
+		{
+			push_lowest(stack_a, stack_b, len);
+			len--;
+		}
+		sort_3(stack_a);
+		while (*stack_b)
+			push('a', stack_b, stack_a);
 	}
 }
+//babypos > len / 2 works out cause index is always one smaller ^^

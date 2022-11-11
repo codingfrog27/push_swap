@@ -6,7 +6,7 @@
 /*   By: mde-cloe <mde-cloe@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/10/30 22:13:33 by mde-cloe      #+#    #+#                 */
-/*   Updated: 2022/11/02 16:43:57 by mde-cloe      ########   odam.nl         */
+/*   Updated: 2022/11/09 15:24:43 by mde-cloe      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,22 +33,20 @@ void	double_swap(t_stack *stack_a, t_stack *stack_b)
 	ft_printf("ss\n");
 }
 
-t_stack	*yoink_node(t_stack **stack)
+static t_stack	*yoink_node(t_stack **stack)
 {
-	t_stack	*freed_node;
+	t_stack	*popped_node;
 
+	popped_node = *stack;
 	if ((*stack)->next == *stack)
 	{
-		// ft_printf("WARNING NULL NODE IS BEING GIVEN\n");
-		freed_node = *stack;
 		*stack = NULL;
-		return (freed_node);
+		return (popped_node);
 	}
 	(*stack)->prev->next = (*stack)->next;
 	(*stack)->next->prev = (*stack)->prev;
-	freed_node = *stack;
 	*stack = (*stack)->next;
-	return (freed_node);
+	return (popped_node);
 }
 
 void	push(char c, t_stack **src, t_stack **dest)

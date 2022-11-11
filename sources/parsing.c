@@ -6,17 +6,36 @@
 /*   By: mde-cloe <mde-cloe@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/10/20 16:19:41 by mde-cloe      #+#    #+#                 */
-/*   Updated: 2022/11/07 20:49:05 by mde-cloe      ########   odam.nl         */
+/*   Updated: 2022/11/11 21:08:34 by mde-cloe      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
+
+static int	*intarr_dup( int *src, int size)
+{
+	int	i;
+	int	*copy;
+
+	i = 0;
+	copy = (int *)malloc(sizeof(int) * size);
+	if (!copy)
+		error_exit(src);
+	while (i < size)
+	{
+		copy[i] = src[i];
+		i++;
+	}
+	return (copy);
+}
 
 static bool	is_valid_input(char *str)
 {
 	int	i;
 
 	i = 0;
+	if (!str[i])
+		return (false);
 	if (str[i] == '-')
 	{
 		i++;
@@ -32,7 +51,7 @@ static bool	is_valid_input(char *str)
 	return (true);
 }
 
-void	normalize_nbrs(int *nbrs, int arrlen)
+static void	normalize_nbrs(int *nbrs, int arrlen)
 {
 	int	*copy;
 	int	i;
@@ -47,16 +66,19 @@ void	normalize_nbrs(int *nbrs, int arrlen)
 		while (j < arrlen)
 		{
 			if (nbrs[i] == copy[j])
+			{
 				nbrs[i] = j;
+				break ;
+			}
 			j++;
 		}
-	i++;
-	j = 0;
+		i++;
+		j = 0;
 	}
 	free(copy);
 }
 
-bool	contains_doubles(int *nbrs, int arrlen)
+static void	contains_doubles(int *nbrs, int arrlen)
 {
 	int	i;
 	int	j;
@@ -68,78 +90,35 @@ bool	contains_doubles(int *nbrs, int arrlen)
 		while (j < arrlen)
 		{
 			if (nbrs[i] == nbrs[j])
-				error_exit("contains dobules", nbrs);
+				error_exit(nbrs);
 			j++;
 		}
 		i++;
 		j = i + 1;
 	}
-	return (false);
 }
 
-int	*input_to_array(int arrlen, char **argv)
+int	*intit_array(int arrlen, char **argv)
 {
 	int		*nbrs;
 	int		i;
 	long	tmp;
 
-	nbrs = ft_calloc(sizeof(int), arrlen);
+	nbrs = malloc(sizeof(int) * arrlen);
 	if (!nbrs)
-		error_exit("malloc fail", nbrs);
+		error_exit(nbrs);
 	i = 1;
 	while (argv[i])
 	{
 		if (!is_valid_input(argv[i]))
-			error_exit("invalid input", nbrs);
+			error_exit(nbrs);
 		tmp = ft_atoi(argv[i]);
-		if (tmp > INT_MAX || tmp < INT_MIN)
-			error_exit("hey Int overflow", nbrs);
+		if (tmp < INT_MIN || tmp > INT_MAX)
+			error_exit(nbrs);
 		nbrs[i - 1] = (int)tmp;
 		i++;
 	}
+	contains_doubles(nbrs, arrlen);
 	normalize_nbrs(nbrs, arrlen);
 	return (nbrs);
-}
-
-t_stack	*init_stack_a(int *arr, int arrlen)
-{
-	int		i;
-	t_stack	*stack_a;
-	t_stack	*head;
-
-	i = 1;
-	stack_a = new_node(arr[0]);
-	if (!stack_a)
-		error_exit("malloc fail", arr);
-	head = stack_a;
-	// ft_printf("node %i = %i\n", i, stack_a->nbr);
-	while (i < arrlen)
-	{
-		stack_a->next = new_node(arr[i]);
-		node_check(stack_a, i, arr);
-		stack_a->next->prev = stack_a;
-		stack_a = stack_a->next;
-		// ft_printf("node %i = %i\n", i, stack_a->nbr);
-		i++;
-	}
-	stack_a->next = head;
-	stack_a->next->prev = stack_a;
-	return (head);
-}
-
-void	node_check(t_stack *list, int len, int *nbrs)
-{
-	t_stack	*tmp;
-
-	if (!list->next)
-	{
-		while (len > 0)
-		{
-			tmp = list->prev;
-			free(list);
-			list = tmp;
-			len--;
-		}
-		error_exit("malloc fail", nbrs);
-	}
 }
